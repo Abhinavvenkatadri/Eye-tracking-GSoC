@@ -2,10 +2,6 @@
 layout: default
 ---
 
-'''
-
-)
-
 <img src="https://user-images.githubusercontent.com/52126773/189515274-fe10d739-8972-4972-84ec-79e5cbdd5aa8.png" alt="">
 
 Text can be **bold**, _italic_, or ~~strikethrough~~.
