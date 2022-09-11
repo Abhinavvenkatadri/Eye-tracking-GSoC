@@ -107,6 +107,8 @@ This model was trained on 100 epochs with batch size as 256.
 Few Outputs are shown below where the comparison is being done between last year’s model and the updated model
 
 
+
+
 ### SVR Implementation
 
 The next work was on improving the SVR results.Google uses  the personalized gaze estimation model which consists of a multilayer feed-forward convolutional neural network (CNN) model 1,2 .Additionaly the output of the penultimate layer(1,4) is extracted and is fitted at a user-level to build a high-accuracy personalized model.This improves the accuracy of the model.
@@ -138,7 +140,13 @@ The below results are obtained using  this year’s model on the MIT split as me
 | 2833    | 796              | 1.68cm         | 1.61cm                                    | 2.42cm                                          |
 | 2078    | 786              | 1.23cm         | 0.98cm                                    | 1.11cm                                          |
 
-####Analyzing:
+The CSV files generated for each user which contains their ID , Penultimate Layer Output and the Ground Truth can be [accessed here](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/tree/main/Users_MIT/CSVs_MIT_Dinesh)
+
+The code for generating the CSVs file is [link](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/CSV_Creation(Penultimate%20and%20the%20GT).ipynb)
+
+The code for generating unique points is [link](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/Unique_points_creation.py)
+
+#### Analyzing:
 
 Out of all the users the loss is minimum in User ID 2078 which is 1.03cm if we consider all the frames for training and User ID 2301 which is 1.16cm if we consider only 30 unique points for training.The most decrease in loss is for ID 1877 which is around 35%
 The average loss before (considering all the frames) is 1.78cm and the loss after SVR was applied was 1.43(Considering all the frames) and 1.76cm respectively(Considering 30 unique frames).This shows that there is an overall improvement of around 20%.
@@ -158,7 +166,15 @@ The below results are obtained using  last year’s model on the MIT split as me
 | 2833    | 796              | 1.71cm         | 1.56cm                                    | 1.88cm                                          |
 | 2078    | 786              | 1.22cm         | 1.03cm                                    | 1.38cm                                          |
 
-####Analyzing:
+These results ara obtained after extracting the output of the penultimate layer of the model(1,4) then applying SVR to find the ground truth.
+
+The CSV files generated for each user which contains their ID , Penultimate Layer Output and the Ground Truth can be [accessed here](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/tree/main/Users_MIT)
+
+The code for generating the CSVs file is [link](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/CSV_Creation(Penultimate%20and%20the%20GT).ipynb)
+
+The code for generating unique points is [link](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/Unique_points_creation.py)
+
+#### Analyzing:
 
 Out of all the users the loss is minimum in User ID 2078 which is 1.03cm if we consider all the frames for training and User ID 2301 which is 1.16cm if we consider only 30 unique points for training.The most decrease in loss is for ID 1877 which is around 35%
 
@@ -170,7 +186,24 @@ Next the model was trained on google split with the same changes in the paramete
 
 The results after comparing with previous year’s model is mentioned below.
 
-## Header 2
+| User ID | Number of Frames | Current Model(Google Split) | Previous Implemented Model(Google Split) |
+|---------|------------------|-----------------------------|------------------------------------------|
+| 503     | 965              | 1.32cm                      | 1.50cm                                   |
+| 1866    | 1018             | 0.99cm                      | 1.16cm                                   |
+| 2459    | 1006             | 0.97cm                      | 1.15cm                                   |
+| 1816    | 989              | 0.86cm                      | 1.25cm                                   |
+| 3004    | 983              | 1.43cm                      | 1.4cm                                    |
+| 3253    | 978              | 0.94cm                      | 1.25cm                                   |
+| 1231    | 968              | 1.38cm                      | 1.40cm                                   |
+| 2152    | 957              | 1.24cm                      | 1.26cm                                   |
+| 2015    | 947              | 1.15cm                      | 1.38cm                                   |
+| 1046    | 946              | 1.25cm                      | 1.24cm                                   |
+
+
+
+## Experimentations 
+
+The google split was trained with different train test val split using the parameters changes mentioned and the results are as follows:
 
 > This is a blockquote following a header.
 >
