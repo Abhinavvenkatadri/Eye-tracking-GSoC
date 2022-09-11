@@ -106,7 +106,11 @@ After comparing last year's google split model with the updated implementation
 This model was trained on 100 epochs with batch size as 256.
 Few Outputs are shown below where the comparison is being done between last year’s model and the updated model
 
+<img width="515" alt="image" src="https://user-images.githubusercontent.com/52126773/189524230-4005cbe5-b450-4177-9b09-510947facef0.png">
 
+<img width="539" alt="image" src="https://user-images.githubusercontent.com/52126773/189525151-08cec6b1-7fa4-4f8e-ba3f-96cc8d2eb7df.png">
+
+If we look at these 2 outputs,it could be interpreted that after changing the hyperparameters the outputs appear to be less clustered compared to the previous implemetation.This may not necessarily be good as there are some outputs where points are going away from the ground truth
 
 
 ### SVR Implementation
@@ -203,11 +207,44 @@ The results after comparing with previous year’s model is mentioned below.
 
 ## Experimentations 
 
+#### Different Split
 The google split was trained with different train test val split using the parameters changes mentioned and the results are as follows:
 
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
+|             | Train set | Test set    | Val set   |
+|-------------|-----------|-------------|-----------|
+| Frames      | 398654    | 59563       | 43458     |
+| Split in %  | 79%       | 11.8        | 8.2%      |
+| Error       |           | 1.6357094cm | 1.6270329 |
+
+This was not included and compared with previous implementation as the Train/test/Val set ratio was different and if tested each other's set would lead to some leak in the frames.This could further be extended to further visualise the outputs
+
+#### App
+
+Data was collected using and Android App.The users photo was clicked at random times while the circle is appearing on the screen.The centre of the circle is noted as the X,y coordinate and frames were assigned to particular coordinate depending on the time stamp.
+
+## Challenges and Learning
+
+*  Getting accustomed to training a Model by creating Jobs.
+*  Hyperparameter tuning
+*  Visualising the outputs and interpreting them .
+*  Training on Large Datasets
+
+## Conclusion and Future Scope
+
+* Working on the app further to collect datasets which will be used for fine tuning the model similar to google's implementation
+* Training the model with normalization as used by google
+* Comparing with different implementations such as ITracker to see whether the model can be further improved
+
+
+## Acknowledgements
+
+I’d like to thank my mentors [Dr. Suresh Krishna](https://www.mcgill.ca/physiology/directory/core-faculty/suresh-krishna) and [Mr.Dinesh Sathia Raj](https://www.linkedin.com/in/dssr/) for their guidance throughout.This project would not be possible without them.
+
+This project was carried out as a part of Google Summer of Code 2022 under INCF.
+
+
+
+
 
 ### Header 3
 
