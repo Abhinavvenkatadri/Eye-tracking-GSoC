@@ -27,11 +27,12 @@ Hence our dataset is obtained after applying the following filters
 2.  Only portrait orientation
 3.  Valid face detections
 4.  Valid eye detections
+
 There are two types of splits that are considered
 
-> MIT Split
+1.MIT Split
 
-> Google Split
+2.Google Split
 
 
 
@@ -43,9 +44,10 @@ Overall after the following conditions have been met, the details regarding fram
 
 | **Total Frames** | **Number of Participants** | **Train/Validation/Test** |
 |------------------|----------------------------|---------------------------|
-| 366,940          | 1,241                      | Train                     |
-| 50,946           | 1,219                      | Validation                |
-| 83,849           | 1,233                      | Test                      |
+| 427,092          | 1,075                      | Train                     |
+| 19,102           | 45                         | Validation                |
+| 55,541           | 121                        | Test                      |
+
 
 Two models have been included for this split.
 
@@ -65,6 +67,64 @@ Two models have been included for this split.
 1.[Current Implemented Model(Google Split)](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/Checkpoints/CurrentModel_GoogleSplit.ckpt)
 
 2.[Previous Implemented Model(Google Split)](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/Checkpoints/Previous_Implemented_Model_GoogleSplit.ckpt)
+
+Overall after the following conditions have been met, the details regarding frames are as follows:
+
+| **Total Frames** | **Number of Participants** | **Train/Validation/Test** |
+|------------------|----------------------------|---------------------------|
+| 366,940          | 1,241                      | Train                     |
+| 50,946           | 1,219                      | Validation                |
+| 83,849           | 1,233                      | Test                      |
+
+## The Idea
+
+The plan was to improve last year’s model by going carefully and in further depth through the details mentioned by google in their [supplementary](https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-18360-5/MediaObjects/41467_2020_18360_MOESM1_ESM.pdf) and try experimenting with the change of hyperparameters. After comparing it with [last year’s implementation](https://dssr2.github.io/gaze-track/) which was implemented in pytorch. 
+
+There were two changes that were made to the previous model after going through google's implementation.
+
+1. Epsilon Value- The default value of epsilon in Tensorflow is 0.001.The previous year’s model was trained on Pytorch using its default value which is epsilon = 10^-5.This was one of the changes that was made to the model
+
+2. Learning rate schedule params - Google used tf.keras.optimizers.schedules.ExponentialDecay with parameters as:
+
+*   initial learning rate: 0.016
+*   decay steps: 8000
+*   decay rate: 0.64
+*   decay type: ’staircase’
+
+Previous implementation of optimizer was modified to  StepLR with parameters step_size as 8000 and gamma as 0.64
+
+## Results 
+
+### Comparison of Model
+
+After comparing last year's google split model with the updated implementation
+
+| **Dataset Name**                        | **Number of Files** | **Current Model** | **Previous Implemented Model** |
+|-----------------------------------------|---------------------|-------------------|--------------------------------|
+| Google Split, All Phones; Only Portrait | 83,849              | 1.677cm           | 1.86cm                         |
+
+This model was trained on 100 epochs with batch size as 256.
+Few Outputs are shown below where the comparison is being done between last year’s model and the updated model
+
+
+### SVR Implementation
+
+The next work was on improving the SVR results.Google uses  the personalized gaze estimation model which consists of a multilayer feed-forward convolutional neural network (CNN) model 1,2 .Additionaly the output of the penultimate layer(1,4) is extracted and is fitted at a user-level to build a high-accuracy personalized model.This improves the accuracy of the model.
+
+Once the output of the penultimate layer is obtained(1,4) an SVR is applied.For this we have used the test data of the trained model.For obtaining the (1,4) value of the penultimate layer hook is applied to the model.We compare the results of both last year’s and the updated model.
+
+We select 10 users from the test set based on the number of frames and the results are provided on that.The test set is used for fitting the SVR as this is the data the model is not trained on.While fitting we also consider 30 unique point(Ground truth) .The results for both are provided in the table below. 
+
+For sweeping the parameters we consider:
+
+*   kernel=’rbf'
+*   C=20
+*   gamma=0.6
+
+The Multiouput regressor's epsilon valui was sweeped between 0.1 and 100 to find the optimum value.For fitting the SVR the set is first randomly divided into 70:30 split.We then consider 3 fold cv while applying the grid search.Using this once the best parameter is obtained the results are obtained on the 30% of the data.
+
+The below results are obtained using this this year’s model on the MIT split as mentioned in the previous section:
+
 
 ## Header 2
 
