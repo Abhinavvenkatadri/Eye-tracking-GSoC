@@ -123,8 +123,52 @@ For sweeping the parameters we consider:
 
 The Multiouput regressor's epsilon valui was sweeped between 0.1 and 100 to find the optimum value.For fitting the SVR the set is first randomly divided into 70:30 split.We then consider 3 fold cv while applying the grid search.Using this once the best parameter is obtained the results are obtained on the 30% of the data.
 
-The below results are obtained using this this year’s model on the MIT split as mentioned in the previous section:
+The below results are obtained using  this year’s model on the MIT split as mentioned in the previous section:
 
+| User ID | Number of Frames | MED(MIT Split) | After SVR(3 fold)(Considering all frames) | After SVR(3 fold)(Considering 30 unique points) |
+|---------|------------------|----------------|-------------------------------------------|-------------------------------------------------|
+| 3183    | 874              | 1.86cm         | 1.30cm                                    | 1.15cm                                          |
+| 1877    | 860              | 2.09cm         | 1.23cm                                    | 1.19cm                                          |
+| 1326    | 784              | 1.78cm         | 1.36cm                                    | 2.02cm                                          |
+| 3140    | 783              | 1.71cm         | 1.68cm                                    | 2.47cm                                          |
+| 2091    | 788              | 1.86cm         | 1.77cm                                    | 1.87cm                                          |
+| 2301    | 864              | 1.69cm         | 1.08cm                                    | 0.99cm                                          |
+| 2240    | 801              | 1.69cm         | 1.26cm                                    | 1.40cm                                          |
+| 382     | 851              | 2.57cm         | 2.37cm                                    | 3.01cm                                          |
+| 2833    | 796              | 1.68cm         | 1.61cm                                    | 2.42cm                                          |
+| 2078    | 786              | 1.23cm         | 0.98cm                                    | 1.11cm                                          |
+
+####Analyzing:
+
+Out of all the users the loss is minimum in User ID 2078 which is 1.03cm if we consider all the frames for training and User ID 2301 which is 1.16cm if we consider only 30 unique points for training.The most decrease in loss is for ID 1877 which is around 35%
+The average loss before (considering all the frames) is 1.78cm and the loss after SVR was applied was 1.43(Considering all the frames) and 1.76cm respectively(Considering 30 unique frames).This shows that there is an overall improvement of around 20%.
+
+The below results are obtained using  last year’s model on the MIT split as mentioned in the previous section:
+
+| User ID | Number of Frames | MED(MIT Split) | After SVR(3 fold)(Considering all frames) | After SVR(3 fold)(Considering 30 unique points) |
+|---------|------------------|----------------|-------------------------------------------|-------------------------------------------------|
+| 3183    | 874              | 1.67cm         | 1.41cm                                    | 1.43cm                                          |
+| 1877    | 860              | 2.08cm         | 1.35cm                                    | 1.40cm                                          |
+| 1326    | 784              | 1.69cm         | 1.23cm                                    | 1.93cm                                          |
+| 3140    | 783              | 1.72cm         | 1.38cm                                    | 1.83cm                                          |
+| 2091    | 788              | 1.72cm         | 1.54cm                                    | 2.17cm                                          |
+| 2301    | 864              | 1.72cm         | 1.2cm                                     | 1.16cm                                          |
+| 2240    | 801              | 1.63cm         | 1.22cm                                    | 1.30cm                                          |
+| 382     | 851              | 2.67cm         | 2.33cm                                    | 3.13cm                                          |
+| 2833    | 796              | 1.71cm         | 1.56cm                                    | 1.88cm                                          |
+| 2078    | 786              | 1.22cm         | 1.03cm                                    | 1.38cm                                          |
+
+####Analyzing:
+
+Out of all the users the loss is minimum in User ID 2078 which is 1.03cm if we consider all the frames for training and User ID 2301 which is 1.16cm if we consider only 30 unique points for training.The most decrease in loss is for ID 1877 which is around 35%
+
+The average loss before (considering all the frames) is 1.78cm and the loss after SVR was applied was 1.43(Considering all the frames) and 1.76cm respectively(Considering 30 unique frames).This shows that there is an overall improvement of around 20%.
+
+### Comparison of Model(Google Split)
+
+Next the model was trained on google split with the same changes in the parameter.10 individuals have been selected with maximum number of frames in the train test and val set for experimentation.
+
+The results after comparing with previous year’s model is mentioned below.
 
 ## Header 2
 
