@@ -2,7 +2,13 @@
 layout: default
 ---
 
+'''
 Text can be **bold**, _italic_, or ~~strikethrough~~.
+An implementation of Google's paper - "Accelerating eye movement research via accurate and affordable smartphone eye tracking" for GSoC 2021
+
+
+'''
+Welcome
 
 [Link to another page](./another-page.html).
 
