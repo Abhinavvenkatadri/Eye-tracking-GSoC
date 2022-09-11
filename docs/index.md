@@ -225,7 +225,7 @@ The results after comparing with previous year’s model is mentioned below.
 | 2015    | 947              | 1.15cm                      | 1.38cm                                   |
 | 1046    | 946              | 1.25cm                      | 1.24cm                                   |
 
-Here some of the points are leaked i.e they are present in both the train and the test set, but so it is and they are common to both models. This will be cleaned up in future work
+Here some of the points are leaked i.e they are present in both the user data while testing and in the train dataset , but so it is and they are common to both models. This will be cleaned up in future work.
 
 ## Experimentations 
 
@@ -238,7 +238,7 @@ The google split was trained with different train test val split using the param
 | Split in %  | 79%       | 11.8        | 8.2%      |
 | Error       |           | 1.6357094cm | 1.6270329 |
 
-This was not included and compared with the previous implementation as the Train/Test/Val  ratio is different and if tested on each other's set would lead to some leak in the frames. Also, the number of Images in train set differs by a lot and could This could further be extended to further visualise the outputs and try improving the model.
+This was not included and compared with the previous implementation as the Train/Test/Val  ratio is different and if tested on each other's test/val set would lead to  appropriate results as there may be frames which are common to both the models. Also, the number of Images in train set differs by a lot and could be a possible reason for a better accuracy. This could further be extended in the future to be compared with the above implemention with frames which are not common to both the models while testing.
 
 #### App
 
@@ -247,16 +247,17 @@ Data was collected using and Android App.The users photo was clicked at random t
 ## Challenges and Learning
 
 *  Getting accustomed to training a Model by creating Jobs.
-*  Hyperparameter tuning
+*  Hyperparameter tuning.
 *  Visualising the outputs and interpreting them .
 *  Training on Large Datasets
 
 ## Conclusion and Future Scope
 
 * Working on the app further to collect datasets which will be used for fine tuning the model similar to google's implementation
-* Training the model with normalization as used by google
+* Training the model with normalization as used by google.
 * Comparing with different implementations such as ITracker to see whether the model can be further improved
-* While testing the google split some of those points are leaked, but so it is and they are common to both models.This will further be cleaned up in future work
+* Testing on only frames whose tilt / pan / roll is within ±10 degrees
+* While testing the google split some of those points are leaked, but so it is and they are common to both models.This has to be cleaned up in future work
 
 ## References
 ```
