@@ -236,7 +236,7 @@ The google split was trained with different train test val split using the param
 |-------------|-----------|-------------|-----------|
 | Frames      | 398654    | 59563       | 43458     |
 | Split in %  | 79%       | 11.8        | 8.2%      |
-| Error       |           | 1.6357094cm | 1.6270329 |
+| Error       |           | 1.6357094cm | 1.6270329cm |
 
 This was not included and compared with the previous implementation as the Train/Test/Val  ratio is different and if tested on each other's test/val set would lead to  appropriate results as there may be frames which are common to both the models. Also, the number of Images in train set differs by a lot and could be a possible reason for a better accuracy. This could further be extended in the future to be compared with the above implemention with frames which are not common to both the models while testing.
 
