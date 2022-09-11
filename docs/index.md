@@ -18,7 +18,6 @@ All trained models provided in this project are trained on some subset of the ma
 
 ### Splits
 
-Before explaining splits
 All frames that make it to the final dataset contains only those frames that have a valid face detection along with valid eye detections. If any one of the 3 detections are not present, the frame is discarded.
 
 Hence our dataset is obtained after applying the following filters
@@ -127,15 +126,15 @@ Few Outputs are shown below where the comparison is being done between last year
 
 ![image](https://user-images.githubusercontent.com/52126773/189526759-5be8777c-bd45-4a94-8d8b-750f6776db0c.png)
 
-If we look at these 2 outputs,it could be interpreted that after changing the hyperparameters the outputs appear to be less clustered compared to the previous implemetation.This may not necessarily be good as there are some outputs where points are going away from the ground truth
+If we look at these 2 outputs,it could be interpreted that after changing the hyperparameters the outputs appear to be less clustered compared to the previous implemetation. This may not necessarily be good/advantageous as there are some values where outputs are going away from the ground truth.
 
 
 ### SVR Implementation
 
-The next work was on improving the SVR results.Google uses  the personalized gaze estimation model which consists of a multilayer feed-forward convolutional neural network (CNN) model 1,2 .Additionaly the output of the penultimate layer(1,4) is extracted and is fitted at a user-level to build a high-accuracy personalized model.This improves the accuracy of the model.
+The next work was on improving the SVR results.  Google uses the personalized gaze estimation model which consists of a multilayer feed-forward convolutional neural network (CNN) model .Additionaly the output of the penultimate layer(1,4) is extracted and is fitted at a per-user-level to build a high-accuracy personalized model. This improves the accuracy of the model.
 
-Once the output of the penultimate layer is obtained(1,4) an SVR is applied.For this we have used the test data of the trained model.For obtaining the (1,4) value of the penultimate layer hook is applied to the model.We compare the results of both last year’s and the updated model.
-
+Once the output of the penultimate layer is obtained (1,4) an multioutput regressor i.e SVR is applied. Thsi was fitted on the test data of the trained model. For obtaining the (1,4) value of the penultimate layer hook is applied to the model.We compare the results of both last year’s and the updated model.
+ 
 We select 10 users from the test set based on the number of frames and the results are provided on that.The test set is used for fitting the SVR as this is the data the model is not trained on.While fitting we also consider 30 unique point(Ground truth) .The results for both are provided in the table below. 
 
 For sweeping the parameters we consider:
