@@ -3,18 +3,14 @@ layout: default
 ---
 
 <img src="https://user-images.githubusercontent.com/52126773/189515274-fe10d739-8972-4972-84ec-79e5cbdd5aa8.png" alt="">
-```
-Improvement of Current State of the art Eye trackers and follow up work on previous year's [implementation](https://dssr2.github.io/gaze-track/)
-```
 
-```
-There should be whitespace between paragraphs.
-
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
-```
 # Gazetrack
 
 This provides the complete guide to trying to improve the current eye trackers by implementing and tuning the previous year’s implementation of the eye trackers.We follow Google’s implementation of the Paper titled “ Accelerating eye movement research via accurate and affordable smartphone eye tracking” and going into much depth of their implementation
+
+# Introduction
+
+It has varieties of applications ranging across usability and user experience research, gaming, driving, and gaze-based interaction for accessibility to healthcare. Smartphone gaze could also provide a digital phenotype for screening or monitoring health conditions such as autism spectrum disorder, dyslexia, concussion and more. This could enable timely and early interventions, especially for countries with limited access to healthcare services. People with conditions such as ALS, locked-in syndrome and stroke have impaired speech and motor ability. The smartphone gaze could provide a powerful way to make daily tasks easier with the use of gaze for interaction, as recently demonstrated by Google Look to Speak.
 
 ## Header 2
 
