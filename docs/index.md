@@ -3,23 +3,18 @@ layout: default
 ---
 
 <img src="https://user-images.githubusercontent.com/52126773/189515274-fe10d739-8972-4972-84ec-79e5cbdd5aa8.png" alt="">
+```
+Improvement of Current State of the art Eye trackers and follow up work on previous year's [implementation](https://dssr2.github.io/gaze-track/)
+```
 
-Text can be **bold**, _italic_, or ~~strikethrough~~.
-An implementation of Google's paper - "Accelerating eye movement research via accurate and affordable smartphone eye tracking" for GSoC 2021
-
-
-'''
-Welcome
-
-[Link to another page](./another-page.html).
-
+```
 There should be whitespace between paragraphs.
 
 There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
+```
+# Gazetrack
 
-# Header 1
-
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
+This provides the complete guide to trying to improve the current eye trackers by implementing and tuning the previous year’s implementation of the eye trackers.We follow Google’s implementation of the Paper titled “ Accelerating eye movement research via accurate and affordable smartphone eye tracking” and going into much depth of their implementation
 
 ## Header 2
 
