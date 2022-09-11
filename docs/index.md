@@ -84,6 +84,9 @@ There were two changes that were made to the previous model after going through 
 
 1. Epsilon Value- The default value of epsilon in Tensorflow is 0.001.The previous year’s model was trained on Pytorch using its default value which is epsilon = 10^-5.This was one of the changes that was made to the model
 
+```python
+nn.BatchNorm2d('fill according to layer', momentum=0.9,eps=0.001)
+```
 2. Learning rate schedule params - Google used tf.keras.optimizers.schedules.ExponentialDecay with parameters as:
 
 *   initial learning rate: 0.016
@@ -91,7 +94,21 @@ There were two changes that were made to the previous model after going through 
 *   decay rate: 0.64
 *   decay type: ’staircase’
 
+```python
+optimizer = torch.optim.Adam(self.parameters(), lr=self.lr, betas=(0.9, 0.999), eps=1e-07)
+scheduler = StepLR(optimizer, step_size = 8000, gamma=0.64,verbose=True)
+
+```
+
 Previous implementation of optimizer was modified to  StepLR with parameters step_size as 8000 and gamma as 0.64
+
+## The Network
+
+We reproduce the network as provided in the Google paper and the supplementary information.
+
+The figure below shows the network architecture.
+![image](https://user-images.githubusercontent.com/52126773/189526818-4a94d07a-3067-4263-9279-fb89333214e2.png)
+
 
 ## Results 
 
@@ -203,7 +220,7 @@ The results after comparing with previous year’s model is mentioned below.
 | 2015    | 947              | 1.15cm                      | 1.38cm                                   |
 | 1046    | 946              | 1.25cm                      | 1.24cm                                   |
 
-
+Here some of those points are leaked, but so it is and they are common to both models. This will be cleaned up in future work
 
 ## Experimentations 
 
@@ -234,6 +251,19 @@ Data was collected using and Android App.The users photo was clicked at random t
 * Working on the app further to collect datasets which will be used for fine tuning the model similar to google's implementation
 * Training the model with normalization as used by google
 * Comparing with different implementations such as ITracker to see whether the model can be further improved
+* While testing the google split some of those points are leaked, but so it is and they are common to both models.This will further be cleaned up in future work
+
+## References
+```
+1. Eye Tracking for Everyone
+K.Krafka*, A. Khosla*, P. Kellnhofer, H. Kannan, S. Bhandarkar, W. Matusik and A. Torralba
+IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2016
+
+2.Accelerating eye movement research via accurate and affordable smartphone eye tracking.
+Valliappan, N., Dai, N., Steinberg, E., He, J., Rogers, K., Ramachandran, V., Xu, P., Shojaeizadeh, M., Guo, L., Kohlhoff, K. and Navalpakkam, V.
+Nature communications, 2020
+
+```
 
 
 ## Acknowledgements
@@ -242,103 +272,6 @@ I’d like to thank my mentors [Dr. Suresh Krishna](https://www.mcgill.ca/physio
 
 This project was carried out as a part of Google Summer of Code 2022 under INCF.
 
-
-
-
-
-### Header 3
-
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
-
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
-```
-
-#### Header 4
-
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-
-##### Header 5
-
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
-
-###### Header 6
-
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
-
-### There's a horizontal rule below this.
-
-* * *
-
-### Here is an unordered list:
-
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
-
-### And an ordered list:
-
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
-
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
 
 ```
 Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
