@@ -106,9 +106,9 @@ After comparing last year's google split model with the updated implementation
 This model was trained on 100 epochs with batch size as 256.
 Few Outputs are shown below where the comparison is being done between last year’s model and the updated model
 
-<img width="515" alt="image" src="https://user-images.githubusercontent.com/52126773/189524230-4005cbe5-b450-4177-9b09-510947facef0.png">
+![image](https://user-images.githubusercontent.com/52126773/189526752-ceeccc50-2f85-40ac-8ed9-62cdc6b207ee.png)
 
-<img width="539" alt="image" src="https://user-images.githubusercontent.com/52126773/189525151-08cec6b1-7fa4-4f8e-ba3f-96cc8d2eb7df.png">
+![image](https://user-images.githubusercontent.com/52126773/189526759-5be8777c-bd45-4a94-8d8b-750f6776db0c.png)
 
 If we look at these 2 outputs,it could be interpreted that after changing the hyperparameters the outputs appear to be less clustered compared to the previous implemetation.This may not necessarily be good as there are some outputs where points are going away from the ground truth
 
