@@ -111,7 +111,7 @@ The figure below shows the network architecture.
 
 ## Results 
 
-### Comparison of Model
+### Comparison of the two Models
 
 After comparing last year's google split model with the updated implementation
 
@@ -126,16 +126,16 @@ Few Outputs are shown below where the comparison is being done between last year
 
 ![image](https://user-images.githubusercontent.com/52126773/189526759-5be8777c-bd45-4a94-8d8b-750f6776db0c.png)
 
-If we look at these 2 outputs,it could be interpreted that after changing the hyperparameters the outputs appear to be less clustered compared to the previous implemetation. This may not necessarily be good/advantageous as there are some values where outputs are going away from the ground truth.
+If we look at these 2 outputs, it could be interpreted that after changing the hyperparameters the outputs appear to be less clustered compared to the previous implemetation. This may not necessarily be good/advantageous as there are some values where outputs are going away from the ground truth.
 
 
 ### SVR Implementation
 
-The next work was on improving the SVR results.  Google uses the personalized gaze estimation model which consists of a multilayer feed-forward convolutional neural network (CNN) model .Additionaly the output of the penultimate layer(1,4) is extracted and is fitted at a per-user-level to build a high-accuracy personalized model. This improves the accuracy of the model.
+The next work was on improving the SVR results.  Google uses the personalized gaze estimation model which consists of a multilayer feed-forward convolutional neural network (CNN) model .Additionaly the output of the penultimate layer(1,4) is extracted and is fitted at a per-user-level to build a high-accuracy personalized model. 
 
-Once the output of the penultimate layer is obtained (1,4) an multioutput regressor i.e SVR is applied. Thsi was fitted on the test data of the trained model. For obtaining the (1,4) value of the penultimate layer hook is applied to the model.We compare the results of both last year’s and the updated model.
+A hook is applied to the model for obtaining the output of the penultimate layer.The code for this is [link](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/CSV_Creation(Penultimate%20and%20the%20GT).ipynb). Once the output of the penultimate layer is obtained (1,4) an multioutput regressor i.e SVR is applied. This was fitted on the test part of the trained model. We compare the results of both last year’s implementation and the updated model.
  
-We select 10 users from the test set based on the number of frames and the results are provided on that.The test set is used for fitting the SVR as this is the data the model is not trained on.While fitting we also consider 30 unique point(Ground truth) .The results for both are provided in the table below. 
+We select 10 users from the test set based on the number of frames and the results are provided on that.The test set is used for fitting the SVR as this is the data the model has not seen. While fitting we also consider one more scenario which is considering 30 unique points(Ground truth) .The results for both are provided in the table below. 
 
 For sweeping the parameters we consider:
 
@@ -143,9 +143,11 @@ For sweeping the parameters we consider:
 *   C=20
 *   gamma=0.6
 
-The Multiouput regressor's epsilon valui was sweeped between 0.1 and 100 to find the optimum value.For fitting the SVR the set is first randomly divided into 70:30 split.We then consider 3 fold cv while applying the grid search.Using this once the best parameter is obtained the results are obtained on the 30% of the data.
+This is simiar to what Google have mentioned in their [supplementary](https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-18360-5/MediaObjects/41467_2020_18360_MOESM1_ESM.pdf)
 
-The below results are obtained using  this year’s model on the MIT split as mentioned in the previous section:
+The Multioutput regressor's epsilon value was sweeped between 0.01 and 1000 to find the optimum value. For fitting the SVR the test set is first randomly divided into 70:30 ratio. We then consider [3 fold cv](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/SVR_Sweep_cv3.ipynb) and [5 fold cv](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/SVR_Sweep_cv5.ipynb) while doing the grid search. Using this once the best parameter is obtained the results are obtained on the 30% of the data.
+
+The below results are obtained using this **year’s model** on the **MIT split** as mentioned in the previous section:
 
 | User ID | Number of Frames | MED(MIT Split) | After SVR(3 fold)(Considering all frames) | After SVR(3 fold)(Considering 30 unique points) |
 |---------|------------------|----------------|-------------------------------------------|-------------------------------------------------|
@@ -160,18 +162,20 @@ The below results are obtained using  this year’s model on the MIT split as me
 | 2833    | 796              | 1.68cm         | 1.61cm                                    | 2.42cm                                          |
 | 2078    | 786              | 1.23cm         | 0.98cm                                    | 1.11cm                                          |
 
+
 The CSV files generated for each user which contains their ID , Penultimate Layer Output and the Ground Truth can be [accessed here](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/tree/main/Users_MIT/CSVs_MIT_Dinesh)
 
 The code for generating the CSVs file is [link](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/CSV_Creation(Penultimate%20and%20the%20GT).ipynb)
 
 The code for generating unique points is [link](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/Unique_points_creation.py)
 
-#### Analyzing:
+#### Analysis:
 
-Out of all the users the loss is minimum in User ID 2078 which is 1.03cm if we consider all the frames for training and User ID 2301 which is 1.16cm if we consider only 30 unique points for training.The most decrease in loss is for ID 1877 which is around 35%
-The average loss before (considering all the frames) is 1.78cm and the loss after SVR was applied was 1.43(Considering all the frames) and 1.76cm respectively(Considering 30 unique frames).This shows that there is an overall improvement of around 20%.
+Out of all the users the loss is minimum in User ID 2078 which is 0.982cm if we consider all the frames for training and User ID 2301 which is 0.99cm if we consider only 30 unique points for training. The most decrease in loss is for ID 2301 which is around 35%.
+The average loss before (considering all the frames) is 1.82cm and the loss after SVR was applied was 1.47cm(Considering all the frames) and 1.76cm respectively(Considering 30 unique frames). This shows that there is an overall improvement of around 19%.
 
-The below results are obtained using  last year’s model on the MIT split as mentioned in the previous section:
+
+The below results are obtained using  **last year’s model** on the **MIT split** as mentioned in the previous section:
 
 | User ID | Number of Frames | MED(MIT Split) | After SVR(3 fold)(Considering all frames) | After SVR(3 fold)(Considering 30 unique points) |
 |---------|------------------|----------------|-------------------------------------------|-------------------------------------------------|
@@ -186,7 +190,7 @@ The below results are obtained using  last year’s model on the MIT split as me
 | 2833    | 796              | 1.71cm         | 1.56cm                                    | 1.88cm                                          |
 | 2078    | 786              | 1.22cm         | 1.03cm                                    | 1.38cm                                          |
 
-These results ara obtained after extracting the output of the penultimate layer of the model(1,4) then applying SVR to find the ground truth.
+These results as mentioned above are obtained after extracting the output of the penultimate layer of the model (1,4) then applying SVR to find the ground truth.
 
 The CSV files generated for each user which contains their ID , Penultimate Layer Output and the Ground Truth can be [accessed here](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/tree/main/Users_MIT)
 
@@ -194,15 +198,17 @@ The code for generating the CSVs file is [link](https://github.com/Abhinavvenkat
 
 The code for generating unique points is [link](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/Unique_points_creation.py)
 
-#### Analyzing:
+#### Analysis:
 
-Out of all the users the loss is minimum in User ID 2078 which is 1.03cm if we consider all the frames for training and User ID 2301 which is 1.16cm if we consider only 30 unique points for training.The most decrease in loss is for ID 1877 which is around 35%
+Out of all the users the loss is minimum in User ID 2078 which is 1.03cm if we consider all the frames for training and User ID 2301 which is 1.16cm if we consider only 30 unique points for training.The most decrease in loss is for ID 1877 which is around 35%.
 
-The average loss before (considering all the frames) is 1.78cm and the loss after SVR was applied was 1.43(Considering all the frames) and 1.76cm respectively(Considering 30 unique frames).This shows that there is an overall improvement of around 20%.
+The average loss before (considering all the frames) is 1.78cm and the loss after SVR was applied was 1.43(Considering all the frames) and 1.76cm respectively(Considering 30 unique frames). This shows that there is an overall improvement of around 20%.
+
+Hence if we compare the decrease in loss of both the models trained on MIT Split there is a decrease of around 20% in Error(cm) after applying SVR.
 
 ### Comparison of Model(Google Split)
 
-Next the model was trained on google split with the same changes in the parameter.10 individuals have been selected with maximum number of frames in the train test and val set for experimentation.
+Next the model was trained on google split with the same changes in the parameter. 10 individuals have been selected with maximum number of frames in the train test and val set for experimentation.
 
 The results after comparing with previous year’s model is mentioned below.
 
@@ -219,7 +225,7 @@ The results after comparing with previous year’s model is mentioned below.
 | 2015    | 947              | 1.15cm                      | 1.38cm                                   |
 | 1046    | 946              | 1.25cm                      | 1.24cm                                   |
 
-Here some of those points are leaked, but so it is and they are common to both models. This will be cleaned up in future work
+Here some of the points are leaked i.e they are present in both the train and the test set, but so it is and they are common to both models. This will be cleaned up in future work
 
 ## Experimentations 
 
@@ -232,7 +238,7 @@ The google split was trained with different train test val split using the param
 | Split in %  | 79%       | 11.8        | 8.2%      |
 | Error       |           | 1.6357094cm | 1.6270329 |
 
-This was not included and compared with previous implementation as the Train/test/Val set ratio was different and if tested each other's set would lead to some leak in the frames.This could further be extended to further visualise the outputs
+This was not included and compared with the previous implementation as the Train/Test/Val  ratio is different and if tested on each other's set would lead to some leak in the frames. Also, the number of Images in train set differs by a lot and could This could further be extended to further visualise the outputs and try improving the model.
 
 #### App
 
