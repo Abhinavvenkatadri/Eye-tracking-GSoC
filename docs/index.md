@@ -271,11 +271,3 @@ I’d like to thank my mentors [Dr. Suresh Krishna](https://www.mcgill.ca/physio
 
 This project was carried out as a part of Google Summer of Code 2022 under INCF.
 
-
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-```
-
-```
-The final element.
-```
