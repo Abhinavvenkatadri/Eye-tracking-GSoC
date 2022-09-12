@@ -98,6 +98,13 @@ optimizer = torch.optim.Adam(self.parameters(), lr=self.lr, betas=(0.9, 0.999), 
 scheduler = StepLR(optimizer, step_size = 8000, gamma=0.64,verbose=True)
 
 ```
+3. Mean Euclidean Distance(MED) which are used to test the model is defined as :
+
+```python
+def euc(a, b):
+    return np.sqrt(np.sum(np.square(a - b), axis=1))
+
+```
 
 Previous implementation of optimizer was modified to  StepLR with parameters step_size as 8000 and gamma as 0.64
 
@@ -105,7 +112,7 @@ Previous implementation of optimizer was modified to  StepLR with parameters ste
 
 We reproduce the network as provided in the [Google paper](https://www.nature.com/articles/s41467-020-18360-5) and the supplementary information.
 
-The figure below shows the network architecture[2].
+The figure below shows the network architecture[2]().
 ![image](https://user-images.githubusercontent.com/52126773/189526818-4a94d07a-3067-4263-9279-fb89333214e2.png)
 
 
