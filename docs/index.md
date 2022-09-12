@@ -149,7 +149,7 @@ This is simiar to what Google have mentioned in their [supplementary](https://st
 
 The Multioutput regressor's epsilon value was sweeped between 0.01 and 1000 to find the optimum value. For fitting the SVR the test set is first randomly divided into 70:30 ratio. We then consider [3 fold cv](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/SVR_Sweep_cv3.ipynb) and [5 fold cv](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/SVR_Sweep_cv5.ipynb) while doing the grid search. Using this the best parameter is obtained and this is used to test the SVR.
 
-Mean Euclidean Distance(MED) is used to test the model and is defined as :
+Euclidean Distance(MED) is used to test the model and is defined as :
 
 ```python
 def euc(a, b):
