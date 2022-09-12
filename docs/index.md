@@ -6,7 +6,7 @@ layout: default
 
 # Gazetrack
 
-This provides the complete guide to the work which is implementing and tuning the [Google's architecture](https://research.google/pubs/pub49585/). We follow Google’s implementation of the Paper titled “ Accelerating eye movement research via accurate and affordable smartphone eye tracking” and going into much depth of their implementation
+This provides the complete guide to the work which is implementing and tuning the [Google's architecture](https://research.google/pubs/pub49585/). We follow Google’s implementation of the Paper titled “ Accelerating eye movement research via accurate and affordable smartphone eye tracking” and go into much depth of their implementation
 
 ## Introduction
 
@@ -14,7 +14,7 @@ It has varieties of applications ranging across usability and user experience re
 
 ## The Dataset
 
-All trained models provided in this project are trained on some subset of the massive [MIT GazeCapture dataset](https://gazecapture.csail.mit.edu/index.php) that was released in 2016. You can access the dataset by registering on the website.The details regarding the values they provide are mentioned in their [github](https://github.com/CSAILVision/GazeCapture).They have images along with their respective json files where they have mentioned values like bounding box coordinates of Eye,Face then informations like total number of frames ,number of face detections,eye detections etc.
+All trained models provided in this project are trained on some subset of the massive [MIT GazeCapture dataset](https://gazecapture.csail.mit.edu/index.php) that was released in 2016. You can access the dataset by registering on the website.The details regarding the values they provide are mentioned in their [github](https://github.com/CSAILVision/GazeCapture).They have images along with their respective json files where they have mentioned meta values like bounding box coordinates of Eye,Face etc and informations like total number of frames ,number of face detections,eye detections etc.
 
 ### Splits
 
@@ -81,7 +81,7 @@ The plan was to improve last year’s model by going carefully and in further de
 
 There were two changes that were made to the previous model after going through google's implementation.
 
-1. Epsilon Value- The default value of epsilon in Tensorflow is 0.001.The previous year’s model was trained on Pytorch using its default value which is epsilon = 10^-5.This was one of the changes that was made to the model
+1. Epsilon Value- The default value of epsilon in Tensorflow is 0.001.The previous year’s model was trained on Pytorch using its default value which is epsilon = 10^-5.This was one of the changes that was made to the model.
 
 ```python
 nn.BatchNorm2d('fill according to layer', momentum=0.9,eps=0.001)
@@ -98,21 +98,14 @@ optimizer = torch.optim.Adam(self.parameters(), lr=self.lr, betas=(0.9, 0.999), 
 scheduler = StepLR(optimizer, step_size = 8000, gamma=0.64,verbose=True)
 
 ```
-3. Mean Euclidean Distance(MED) which are used to test the model is defined as :
-
-```python
-def euc(a, b):
-    return np.sqrt(np.sum(np.square(a - b), axis=1))
-
-```
-
 Previous implementation of optimizer was modified to  StepLR with parameters step_size as 8000 and gamma as 0.64
+
 
 ## The Network
 
 We reproduce the network as provided in the [Google paper](https://www.nature.com/articles/s41467-020-18360-5) and the supplementary information.
 
-The figure below shows the network architecture[2]().
+The figure below shows the [network architecture](https://www.nature.com/articles/s41467-020-18360-5).
 ![image](https://user-images.githubusercontent.com/52126773/189526818-4a94d07a-3067-4263-9279-fb89333214e2.png)
 
 
@@ -155,6 +148,14 @@ For sweeping the parameters we consider:
 This is simiar to what Google have mentioned in their [supplementary](https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-18360-5/MediaObjects/41467_2020_18360_MOESM1_ESM.pdf)
 
 The Multioutput regressor's epsilon value was sweeped between 0.01 and 1000 to find the optimum value. For fitting the SVR the test set is first randomly divided into 70:30 ratio. We then consider [3 fold cv](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/SVR_Sweep_cv3.ipynb) and [5 fold cv](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/SVR_Sweep_cv5.ipynb) while doing the grid search. Using this once the best parameter is obtained the results are obtained on the 30% of the data.
+
+Mean Euclidean Distance(MED) is used to test the model and is defined as :
+
+```python
+def euc(a, b):
+    return np.sqrt(np.sum(np.square(a - b), axis=1))
+
+```
 
 The below results are obtained using this **year’s model** on the **MIT split** as mentioned in the previous section:
 
