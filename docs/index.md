@@ -81,12 +81,12 @@ The plan was to improve last year’s model by going carefully and in further de
 
 There were two changes that were made to the previous model after going through google's implementation.
 
-1. Epsilon Value- The default value of epsilon in Tensorflow is 0.001.The previous year’s model was trained on Pytorch using its default value which is epsilon = 10^-5.This was one of the changes that was made to the model.
+*   Epsilon Value- The default value of epsilon in Tensorflow is 0.001.The previous year’s model was trained on Pytorch using its default value which is epsilon = 10^-5.This was one of the changes that was made to the model.
 
 ```python
 nn.BatchNorm2d('fill according to layer', momentum=0.9,eps=0.001)
 ```
-2. Learning rate schedule params - Google used tf.keras.optimizers.schedules.ExponentialDecay with parameters as:
+*   Learning rate schedule params - Google used tf.keras.optimizers.schedules.ExponentialDecay with parameters as:
 
 *   initial learning rate: 0.016
 *   decay steps: 8000
