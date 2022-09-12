@@ -59,7 +59,7 @@ The changes in the model will be explained in the further sections
 
 #### Google Split 
 
-Google split their dataset according to the unique ground truth points. What this means is that frames from each participant are present in the train test and validation sets. To ensure no data leaks though, frames related to a particular ground truth point do not appear in more than one set. The split is also a random 70/10/15 train/val/test split compared to a 13 point calibration split.
+Google split their dataset according to the unique ground truth points. What this means is that frames from each participant are present in the train test and validation sets. To ensure no data leaks though, frames related to a particular ground truth point do not appear in more than one set. The split is also a random 70/10/15 train/val/test split.
 
 Two models have been included for this split.
 
@@ -103,9 +103,9 @@ Previous implementation of optimizer was modified to  StepLR with parameters ste
 
 ## The Network
 
-We reproduce the network as provided in the Google paper and the supplementary information.
+We reproduce the network as provided in the [Google paper](https://www.nature.com/articles/s41467-020-18360-5) and the supplementary information.
 
-The figure below shows the network architecture.
+The figure below shows the network architecture[2].
 ![image](https://user-images.githubusercontent.com/52126773/189526818-4a94d07a-3067-4263-9279-fb89333214e2.png)
 
 
@@ -122,9 +122,11 @@ After comparing last year's google split model with the updated implementation
 This model was trained on 100 epochs with batch size as 256.
 Few Outputs are shown below where the comparison is being done between last year’s model and the updated model
 
-![image](https://user-images.githubusercontent.com/52126773/189526752-ceeccc50-2f85-40ac-8ed9-62cdc6b207ee.png)
+The **‘+’ signs** are the ground truth gaze locations and the **dots** are network predictions. Each gaze location has multiple frames associated with it and hence has multiple predictions. To map predictions to their respective ground truth, we use color coding. All dots of a color correspond to the ‘+’ of the same color. The camera is at the origin(the star). 
 
-![image](https://user-images.githubusercontent.com/52126773/189526759-5be8777c-bd45-4a94-8d8b-750f6776db0c.png)
+![image](https://user-images.githubusercontent.com/52126773/189645094-9479c8f5-43d9-4382-9e07-c6d106995978.png)
+
+![image](https://user-images.githubusercontent.com/52126773/189645086-61f17fc7-5a83-4fab-88c3-8d422967072e.png)
 
 If we look at these 2 outputs, it could be interpreted that after changing the hyperparameters the outputs appear to be less clustered compared to the previous implemetation. This may not necessarily be good/advantageous as there are some values where outputs are going away from the ground truth.
 
