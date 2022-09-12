@@ -120,7 +120,7 @@ After comparing last year's google split model with the updated implementation
 | Google Split, All Phones; Only Portrait | 83,849              | 1.677cm           | 1.86cm                         |
 
 This model was trained on 100 epochs with batch size as 256.
-Few Outputs are shown below where the comparison is being done between last year’s model and the updated model
+Few Outputs are shown below where the comparison is being done between last year’s model and the updated model.
 
 The **‘+’ signs** are the ground truth gaze locations and the **dots** are network predictions. Each gaze location has multiple frames associated with it and hence has multiple predictions. To map predictions to their respective ground truth, we use color coding. All dots of a color correspond to the ‘+’ of the same color. The camera is at the origin(the star). 
 
