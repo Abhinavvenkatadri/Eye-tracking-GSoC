@@ -128,16 +128,16 @@ The **‘+’ signs** are the ground truth gaze locations and the **dots** are n
 
 ![image](https://user-images.githubusercontent.com/52126773/189645086-61f17fc7-5a83-4fab-88c3-8d422967072e.png)
 
-If we look at these 2 outputs, it could be interpreted that after changing the hyperparameters the outputs appear to be less clustered compared to the previous implemetation. This may not necessarily be good/advantageous as there are some values where outputs are going away from the ground truth.
+If we look at these 2 outputs, it could be interpreted that after changing the hyperparameters the outputs appear to be less clustered compared to the previous implemetation. This may not necessarily be **good/advantageous** as there are some values where outputs are going away from the ground truth.
 
 
 ### SVR Implementation
 
-The next work was on improving the SVR results.  Google uses the personalized gaze estimation model which consists of a multilayer feed-forward convolutional neural network (CNN) model .Additionaly the output of the penultimate layer(1,4) is extracted and is fitted at a per-user-level to build a high-accuracy personalized model. 
+The next work was on improving the SVR results. Google uses the personalized gaze estimation model which consists of a multilayer feed-forward convolutional neural network (CNN) model. Additionaly the output of the penultimate layer(1,4) is extracted and is fitted at a per-user-level to build a high-accuracy personalized model. 
 
 A hook is applied to the model for obtaining the output of the penultimate layer.The code for this is [link](https://github.com/Abhinavvenkatadri/Eye-tracking-GSoC/blob/main/SVR_Sweep/CSV_Creation(Penultimate%20and%20the%20GT).ipynb). Once the output of the penultimate layer is obtained (1,4) a multioutput regressor i.e SVR is applied. This was fitted on the test part of the trained model. We compare the results of both last year’s implementation and the updated model.
  
-We select 10 users from the test set based on the number of frames and the results are provided on that. The test set is used for fitting the SVR as this is the data the model has not seen. Corresponding to every user there are multiple input values(frames) associated to each Ground truth point. For example, for one Ground truth as there are multiple frames associated with it leads to multiple predictions for each Ground truth value and can be seen in the output section of the google split. We fit the model in two different ways,one being where we consider all the frames for fitting our model i.e lets say 1000 frames.In the second case we randomly pick out one frame corresponding to each ground truth value, hence there will be 30 frames which will used this time as there are 30 unique Ground truth values.These are split inot 70:30 ratio which results into 21 points  for fitting the SVR and the rest 9 for testing the model. The results for both are provided in the table below. 
+We select 10 users from the test set based on the number of frames and the results are provided on that. The test set is used for fitting the SVR as this is the data the model has not seen. Corresponding to every user there are multiple input values(frames) associated to each Ground truth point. We fit the model in two different ways,one being where we consider all the frames for fitting our model i.e lets say 1000 frames.In the second case we randomly pick out one frame corresponding to each ground truth value, hence there will be 30 frames which will used this time as there are 30 unique Ground truth values.These are split into 70:30 ratio which results into 21 points for fitting the SVR and the rest 9 for testing the SVR. The results for both are provided in the table below. 
 
 For sweeping the parameters we consider:
 
